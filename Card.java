@@ -1,51 +1,53 @@
 public class Card {
   private int cardNumber;
-  private int suit;
-  private String cardName;
-  private String symbol;
+  private int symbolNumber;
 
-  public Card(int cardNumber, int suit) {
-    this.cardNumber = cardNumber;
-    this.suit = suit;
+  public Card(int cardNumber) {
+    this.cardNumber = cardNumber%13;
+    symbolNumber = cardNumber/13;
   }
 
-  // TODO: getCardName, setCardName, getCardSymbol, setCardSymbol
+  public String getCardName() {
+    return convertCardNameToString(cardNumber);
+  }
 
-  public String toString() {
+  public void setCardName(int cardNumber) {
+    this.cardNumber = cardNumber%13;
+  }
+
+  // TODO: getCardSymbol, setCardSymbol
+
+  private String convertCardNameToString(int cardNumber) {
     switch(cardNumber) {
       case 0:
-        cardName = "Ace";
+        return "Ace";
       case 1,2,3,4,5,6,7,8,9:
-        cardName = "" + (cardNumber + 1);
-        break;
+        return "" + (cardNumber + 1);
       case 10:
-        cardName = "Jack";
-        break;
+        return "Jack";
       case 11:
-        cardName = "Queen";
-        break;
+        return "Queen";
       case 12:
-        cardName = "King";
-        break;
+        return "King";
       default:
-        cardName = "Default";
-        break;
+        return "";
     }
-    switch(suit) {
-      case 0:
-        symbol = "Hearts";
-        break;
-      case 1:
-        symbol = "Diamonds";
-        break;
-      case 2:
-        symbol = "Spades";
-        break;
-      case 3:
-        symbol = "Clubs";
-        break;
-    }
+  }
 
-    return cardName + " of " + symbol;
+  private String convertSymbolToString(int symbolNumber) {
+    switch(symbolNumber) {
+      case 0:
+        return "Hearts";
+      case 1:
+        return "Diamonds";
+      case 2:
+        return "Spades";
+      case 3:
+        return "Clubs";
+    }
+  }
+
+  public String toString() {
+    // TODO
   }
 }
