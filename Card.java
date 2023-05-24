@@ -1,10 +1,11 @@
 public class Card {
   private int cardNumber;
-  private int symbolNumber;
+  private int cardSymbol;
+  private int value;
 
   public Card(int cardNumber) {
     this.cardNumber = cardNumber%13;
-    symbolNumber = cardNumber/13;
+    this.cardSymbol = cardNumber/13;
   }
 
   public String getCardName() {
@@ -15,7 +16,13 @@ public class Card {
     this.cardNumber = cardNumber%13;
   }
 
-  // TODO: getCardSymbol, setCardSymbol
+  public String getCardSymbol() {
+    return convertSymbolToString(cardSymbol);
+  }
+
+  public void setCardSymbol(int cardNumber) {
+    this.cardSymbol = cardNumber/13;
+  }
 
   private String convertCardNameToString(int cardNumber) {
     switch(cardNumber) {
@@ -34,8 +41,8 @@ public class Card {
     }
   }
 
-  private String convertSymbolToString(int symbolNumber) {
-    switch(symbolNumber) {
+  private String convertSymbolToString(int cardSymbol) {
+    switch(cardSymbol) {
       case 0:
         return "Hearts";
       case 1:
@@ -45,9 +52,10 @@ public class Card {
       case 3:
         return "Clubs";
     }
+    return "";
   }
 
   public String toString() {
-    // TODO
+    return getCardName() + " of " + getCardSymbol();
   }
 }

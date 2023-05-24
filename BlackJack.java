@@ -27,7 +27,8 @@ public class BlackJack {
       System.out.println("---------------* Round " + round + " *---------------");
       System.out.println("Shuffling cards...");
       DeckOfCards deckOfCards = new DeckOfCards();
-      deckOfCards.withdrawCards(2);
+      deckOfCards.shuffleCards();
+      deckOfCards.showAll();
       round++;
     }
 
