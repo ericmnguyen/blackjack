@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 public class BlackJack {
-  public static void main(String[] args)
-  {
+  public static void main(String[] args) {
     int totalMoney;
     int round = 1;
     int bet = 100;
@@ -12,7 +11,7 @@ public class BlackJack {
     Scanner scanner = new Scanner(System.in);
     totalMoney = scanner.nextInt();
     System.out.println("You have " + totalMoney + "$ in total.");
-    while(bet != 0) {
+    while (bet != 0) {
       System.out.print("Input your betting (press 0 to quit the game): ");
       bet = scanner.nextInt();
       if (bet == 0) {
@@ -24,14 +23,36 @@ public class BlackJack {
         System.out.println("Invalid input. Please try again!");
         continue;
       }
+      
       System.out.println("---------------* Round " + round + " *---------------");
       System.out.println("Shuffling cards...");
       DeckOfCards deckOfCards = new DeckOfCards();
       deckOfCards.shuffleCards();
-      deckOfCards.showAll();
+      // deckOfCards.showAll();
+      
+      Hand playerHand = new Hand();
+      Hand dealerHand = new Hand();
+      playerHand.addCard(deckOfCards.withdraw());
+      playerHand.addCard(deckOfCards.withdraw());
+      dealerHand.addCard(deckOfCards.withdraw());
+      dealerHand.addCard(deckOfCards.withdraw());
+      System.out.println("Player hand: " + playerHand);
+      
+      String isStand = "";
+      while(!isStand.toLowerCase().equals("s") && playerHand.shouldShowHitOrStand()) {
+        System.out.print("Hit or Stand?(h/s): ");
+        isStand = scanner.next();
+        if(isStand.toLowerCase().equals("h")) {
+          playerHand.addCard(deckOfCards.withdraw());
+          System.out.println("Player hand: " + playerHand);
+        }
+      }
+
+      //TODO: handle the dealer
       round++;
     }
 
+    scanner.close();
     System.out.println("Game stopped.");
   }
 }

@@ -2,6 +2,7 @@ public class DeckOfCards {
   private int numberOfCards;
   private int totalOfCards;
   private Card[] cards = new Card[52];
+  private int cardIndex = -1;
 
   public DeckOfCards () {
     totalOfCards = 52;
@@ -18,6 +19,11 @@ public class DeckOfCards {
   	    cards[i]=cards[i+j];
   	    cards[i+j]=tmp;
   	}
+  }
+
+  public Card withdraw() {
+    cardIndex += 1;
+    return cards[cardIndex];
   }
 
   public void showAll() {
