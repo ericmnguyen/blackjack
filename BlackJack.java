@@ -1,15 +1,24 @@
 import java.util.Scanner;
 
 public class BlackJack {
-  public static void main(String[] args) {
-    int totalMoney;
+  private int totalMoney;
+
+  public int getTotalMoney() {
+    return totalMoney;
+  }
+
+  private void setTotalMoney(int totalMoney) {
+    this.totalMoney = totalMoney;
+  }
+
+  public void play() {
     int round = 1;
     int bet = 100;
-
     System.out.println("Hello, Welcome to blackjack cards!!!");
     System.out.print("Please input your amount of money: ");
     Scanner scanner = new Scanner(System.in);
-    totalMoney = scanner.nextInt();
+    setTotalMoney(scanner.nextInt());
+    
     while (bet != 0) {
       System.out.println("You have " + totalMoney + "$ in total.");
       System.out.print("Input your betting (press 0 to quit the game): ");
@@ -35,6 +44,7 @@ public class BlackJack {
       playerHand.addCard(deckOfCards.withdraw());
       playerHand.addCard(deckOfCards.withdraw());
       dealerHand.addCard(deckOfCards.withdraw());
+      System.out.println("Dealder's first card: " + dealerHand);
       dealerHand.addCard(deckOfCards.withdraw());
       System.out.println("Player hand: " + playerHand);
       
@@ -48,26 +58,32 @@ public class BlackJack {
           System.out.println("Player hand: " + playerHand);
         }
       }
+      if(playerHand.getValue() > 21) {
+        System.out.println("Player has gone bust");
+      }
 
       //dealer's turn
       System.out.println("Dealer hand: " + dealerHand);
-      while(dealerHand.getValue() < 15) {
+      while(dealerHand.getValue() <= 16) {
         dealerHand.addCard(deckOfCards.withdraw());
         System.out.println("Dealer hand: " + dealerHand);
       }
       System.out.println("POINTS: " + dealerHand.getValue());
+      if(dealerHand.getValue() > 21) {
+        System.out.println("Dealer has gone bust");
+      }
 
       // show the result
       if(dealerHand.getValue() == 0 && playerHand.getValue() != 0) {
         // dealer got blackjack
         System.out.println("Dealer won!");
         // take player's bet
-        totalMoney -= bet;
+        setTotalMoney(totalMoney -= bet);
       } else if(playerHand.getValue() == 0 && dealerHand.getValue() != 0) {
         // player got blackjack
         System.out.println("Player won!");
         // give player money
-        totalMoney += bet;
+        setTotalMoney(totalMoney += bet);
       } else if(dealerHand.getValue() > 21 && playerHand.getValue() > 21
           || dealerHand.getValue() == playerHand.getValue()) {
         // draw
@@ -77,19 +93,23 @@ public class BlackJack {
         // dealer won
         System.out.println("Dealer won!");
         // take player's bet
-        totalMoney -= bet;
+        setTotalMoney(totalMoney -= bet);
       } else if(playerHand.getValue() > dealerHand.getValue() && playerHand.getValue() <= 21
               || playerHand.getValue() <= 21 && dealerHand.getValue() > 21) {
         // player won
         System.out.println("Player won!");
         // give player money
-        totalMoney += bet;
+        setTotalMoney(totalMoney += bet);
       }
 
       round++;
     }
-
     scanner.close();
     System.out.println("Game stopped.");
+  }
+
+  public static void main(String[] args) {
+    BlackJack blackJack = new BlackJack();
+    blackJack.play();
   }
 }
