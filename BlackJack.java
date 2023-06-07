@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BlackJack {
@@ -15,14 +16,27 @@ public class BlackJack {
     int round = 1;
     int bet = 100;
     System.out.println("Hello, Welcome to blackjack cards!!!");
-    System.out.print("Please input your amount of money: ");
     Scanner scanner = new Scanner(System.in);
-    setTotalMoney(scanner.nextInt());
+    while (totalMoney == 0 || totalMoney < 0) {
+      try {
+        System.out.print("Please input your amount of money: ");
+        setTotalMoney(scanner.nextInt());
+      } catch (Exception e) {
+        System.out.println("Invalid input. Please try again!");
+          scanner.nextLine();
+      }
+    }
     
     while (bet != 0) {
       System.out.println("You have " + totalMoney + "$ in total.");
-      System.out.print("Input your betting (press 0 to quit the game): ");
-      bet = scanner.nextInt();
+      try {
+        System.out.print("Input your betting (press 0 to quit the game): ");
+        bet = scanner.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input. Please try again!");
+        scanner.nextLine();
+        continue;
+      }
       if (bet == 0) {
         return;
       } else if (bet > totalMoney) {
@@ -37,7 +51,7 @@ public class BlackJack {
       System.out.println("Shuffling cards...");
       DeckOfCards deckOfCards = new DeckOfCards();
       deckOfCards.shuffleCards();
-      // deckOfCards.showAll();
+      deckOfCards.showAll();
       
       Hand playerHand = new Hand();
       Hand dealerHand = new Hand();
