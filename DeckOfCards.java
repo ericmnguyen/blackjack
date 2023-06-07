@@ -27,7 +27,8 @@ public class DeckOfCards {
 
   public void showAll() {
     for (int i = 0; i < 52; i++) {
-      System.out.println(cards[i].toString() + "\t");
+      System.out.print(cards[i].toString() + "\t");
     }
+    System.out.println();
   }
 }

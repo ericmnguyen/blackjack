@@ -39,7 +39,7 @@ public class Hand {
       System.out.println("POINT:  " + tempPoint);
     }
 
-    if(tempPoint < 17) {
+    if(tempPoint < 21) {
       return true;
     }
     return false;
